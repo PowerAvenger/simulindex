@@ -12,7 +12,7 @@ import plotly.express as px
 # ## Importamos el fichero excel
 
 # %%
-df_in=pd.read_excel('../data/telemindex_2023_2024.xlsx')
+df_in=pd.read_excel('telemindex_2023_2024.xlsx')
 df_in
 
 # %%
