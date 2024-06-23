@@ -1,5 +1,12 @@
+<<<<<<< HEAD
 pandas
 openpyxl
 plotly.express
 streamlit
 
+=======
+plotly.express
+pandas
+openpyxl
+os
+>>>>>>> ad1614d (Create requirements.txt)
