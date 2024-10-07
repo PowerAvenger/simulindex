@@ -36,11 +36,13 @@ df_hist
 
 # %%
 def graf_hist(omip):
-    colores_precios = {'precio_2.0': 'goldenrod', 'precio_3.0': 'darkred', 'precio_6.1': 'blue'}
+    colores_precios = {'precio_2.0': 'goldenrod', 'precio_3.0': 'darkred', 'precio_6.1': 'cyan'}
     graf_hist=px.scatter(df_hist,x='spot',y=['precio_2.0','precio_3.0','precio_6.1'], trendline='ols',
                 labels={'value':'c€/kWh','variable':'Precios s/ ATR','spot':'Precio medio mercado mayorista €/MWh'},
-                height=500,
-                color_discrete_map=colores_precios
+                height=600,
+                color_discrete_map=colores_precios,
+                title='Simulación de los precios medios de indexado',
+                
     )
     
     trend_results = px.get_trendline_results(graf_hist)
@@ -71,7 +73,7 @@ def graf_hist(omip):
         text='Simul 3.0'
     )
     graf_hist.add_scatter(x=[omip],y=[simul_61], mode='markers', 
-        marker=dict(color='rgba(255, 255, 255, 0)',size=20, line=dict(width=5, color='blue')),
+        marker=dict(color='rgba(255, 255, 255, 0)',size=20, line=dict(width=5, color='cyan')),
         name='Simul 6.1',
         text='Simul 6.1'
     )
@@ -83,53 +85,8 @@ def graf_hist(omip):
         y1=simul_20,
         line=dict(color='grey', width=1,dash='dash'),
     )
+    graf_hist.update_layout(
+            title={'x':0.5,'xanchor':'center'},
+    )
     return graf_hist,simul_20,simul_30,simul_61
-
-# %% [markdown]
-# ### Interacción en streamlit: Listado de meses disponibles para usar en un select_box
-
-# %%
-lista_meses=df_in['mes_nombre'].unique().tolist()
-lista_meses
-
-# %%
-orden_meses = {
-    'enero': 1,
-    'febrero': 2,
-    'marzo': 3,
-    'abril': 4,
-    'mayo': 5,
-    'junio': 6,
-    'julio': 7,
-    'agosto': 8,
-    'septiembre': 9,
-    'octubre': 10,
-    'noviembre': 11,
-    'diciembre': 12
-}
-
-# %%
-lista_meses=sorted(lista_meses,key=lambda x:orden_meses[x])
-lista_meses
-
-# %% [markdown]
-# ## Telemindex horario para streamlit
-
-# %%
-### Inicializamos dffm, que es el la tabla filtrada por el usuario
-
-# %%
-def aplicar_margen(mes_seleccionado,margen_aplicado):
-    #dffa_copia=dffa
-    dffa_copia['precio_2.0']=dffa['precio_2.0'] #+=margen_aplicado #=dffm['precio_2.0']+margen
-    dffa_copia['precio_3.0']=dffa['precio_3.0'] #+=margen_aplicado #dffm['precio_3.0']+margen
-    dffa_copia['precio_6.1']=dffa['precio_6.1'] #+=margen_aplicado #dffm['precio_6.1']+margen
-    dffa_copia['precio_2.0']+=margen_aplicado #=dffm['precio_2.0']+margen
-    dffa_copia['precio_3.0']+=margen_aplicado #dffm['precio_3.0']+margen
-    dffa_copia['precio_6.1']+=margen_aplicado #dffm['precio_6.1']+margen
-    
-    filtrar_mes(mes_seleccionado)
-
-    return dffa_copia
-
 
