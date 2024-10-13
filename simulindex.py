@@ -36,11 +36,12 @@ if not st.session_state.popup_mostrado:
     st.session_state.popup_mostrado = True
 
 
-#obtenemos datos de meff
+#inicializamos variable webmeff para actualizar o no el histórico
 if 'web_meff' not in st.session_state:
     st.session_state.web_meff=False
 
-
+def reset_slider():
+    st.session_state.omip_slider=media_omip
 
 
 df_FTB_trimestral_filtrado,fecha_ultimo_omip, media_omip = obtener_meff_trimestral(st.session_state.web_meff)
@@ -64,14 +65,14 @@ with st.sidebar.popover('Actualizar OMIP'):
     if password=='josepass':
         st.session_state.web_meff=True
         df_FTB_trimestral_filtrado,fecha_ultimo_omip, media_omip = obtener_meff_trimestral(st.session_state.web_meff)
+        reset_slider()
            
     st.session_state.web_meff=False    
 
 if 'omip_slider' not in st.session_state:
     st.session_state.omip_slider=media_omip
 
-def reset_slider():
-    st.session_state.omip_slider=media_omip
+
 
 st.sidebar.subheader('¡Personaliza la simulación!', divider='rainbow')
 st.sidebar.info('Usa el deslizador para modificar el valor de :green[OMIP]. No te preocupes, siempre puedes resetear al valor por defecto.',icon="ℹ️")
