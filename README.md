@@ -1,2 +1,2 @@
 
-Simulación de precios de indexado del mercado minorista de electricidad
+Simulación de precios de indexado del mercado minorista de electricidad. Versión mejorada
